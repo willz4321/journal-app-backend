@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,6 +28,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private jwt jwtUtil;
 
+    public JwtRequestFilter(jwt jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+   
 
     @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
