@@ -1,12 +1,12 @@
 package com.facundosuarez.journal.journalapp.controllers;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,9 +48,9 @@ public class journalRestController {
      public ResponseEntity<Object> create(@Valid @RequestBody user newUser) {
          
           //Verifico que todos los datos existan
-            if (newUser.getCorreo().isEmpty() || newUser.getCorreo().isBlank() || !newUser.getCorreo().matches("@")
-                || newUser.getPassword().isEmpty() || newUser.getPassword().isBlank()
-                ||newUser.getUserName().isEmpty() || newUser.getUserName().isBlank() ) {  
+            if (newUser.getCorreo().isEmpty() || newUser.getCorreo().isBlank() || !newUser.getCorreo().matches("@") || !Objects.nonNull(newUser.getCorreo())
+                || newUser.getPassword().isEmpty() || newUser.getPassword().isBlank() || !Objects.nonNull(newUser.getPassword())
+                ||newUser.getUserName().isEmpty() || newUser.getUserName().isBlank() || !Objects.nonNull(newUser.getUserName())) {  
             // La validación falló, hay campos nulos o vacíos
             
                return  ResponseEntity.status(HttpStatus.CONFLICT).body("campos vacios o nulos");
