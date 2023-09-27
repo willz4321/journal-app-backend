@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.facundosuarez.journal.journalapp.models.dao.IAuthDao.IUserDao;
-import com.facundosuarez.journal.journalapp.models.entity.auth.user;
+import com.facundosuarez.journal.journalapp.models.entity.auth.userEntity;
 
 @Service
 public class UserServiceImpl implements IUserService{
@@ -25,18 +25,18 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<user> findAll() {
-        return (List<user>) userDao.findAll();
+    public List<userEntity> findAll() {
+        return (List<userEntity>) userDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public user findByCorreo(String correo) {
+    public userEntity findByCorreo(String correo) {
        return userDao.findByCorreo(correo);
     }
 
     @Override
-    public user save(user user) {
+    public userEntity save(userEntity user) {
         // Verifica si la contraseña es nueva o ya está codificada
         String plainPassword = user.getPassword();
         if (plainPassword != null && !plainPassword.startsWith("$2a$")) {
@@ -49,6 +49,12 @@ public class UserServiceImpl implements IUserService{
     @Override
     public boolean existsByCorreo(String correo) {
         return userDao.existsByCorreo(correo);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public userEntity findById(String id) {
+        return userDao.findById(id).orElse(null);
     }
 
    

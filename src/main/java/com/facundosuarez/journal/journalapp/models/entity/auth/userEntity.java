@@ -1,8 +1,6 @@
 package com.facundosuarez.journal.journalapp.models.entity.auth;
 
 import java.io.Serializable;
-
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,9 +14,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 
-@Entity
+
 @Document(collection = "users")
-public class user implements Serializable {
+public class userEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,5 +74,7 @@ public class user implements Serializable {
     public String getToken() {
         return token;
     }
+
+   
 
 }
