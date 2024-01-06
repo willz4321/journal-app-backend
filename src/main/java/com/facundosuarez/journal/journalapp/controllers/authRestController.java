@@ -23,7 +23,7 @@ import com.facundosuarez.journal.journalapp.models.services.UserServiceImpl.IUse
 
 
 @Validated
-@CrossOrigin(origins = { "http://localhost:3000" })
+@CrossOrigin(origins = {"https://willz4321.github.io/Journal-app/" })
 @RestController
 @RequestMapping("/auth")
 public class authRestController {
