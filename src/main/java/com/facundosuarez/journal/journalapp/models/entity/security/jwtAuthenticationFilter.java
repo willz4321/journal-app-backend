@@ -91,10 +91,10 @@ public class jwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
          httpResponse.put("message", "Autenticacion Correcta");
          httpResponse.put("correo", user.getUsername());
          httpResponse.put("userName", user.getName());     
-         httpResponse.put("id", user.getUid()); // Reemplaza "valor del uid" con el valor real
+         httpResponse.put("id", user.getUid()); 
 
               // Convertir el objeto JSON en una cadena
-              String jsonResponse = new ObjectMapper().writeValueAsString(httpResponse);
+        String jsonResponse = new ObjectMapper().writeValueAsString(httpResponse);
          response.getWriter().write(jsonResponse);
          response.setStatus(200);
          response.setContentType(MediaType.APPLICATION_JSON_VALUE);
