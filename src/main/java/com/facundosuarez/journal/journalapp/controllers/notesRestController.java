@@ -21,7 +21,7 @@ import com.facundosuarez.journal.journalapp.models.entity.note.notes;
 import com.facundosuarez.journal.journalapp.models.services.NotesServiceImpl.INotesService;
 import com.facundosuarez.journal.journalapp.models.services.UserServiceImpl.IUserService;
 
-@CrossOrigin(origins = { "https://willz4321.github.io" })
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 @RequestMapping("/journal")
 public class notesRestController {

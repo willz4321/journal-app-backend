@@ -42,15 +42,13 @@ public class jwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String body ="";                
         String username = "";
         String password="";
-                    System.out.println("URL de la solicitud: " + request.getRequestURL());
-                     System.out.println("content-type: " + request.getHeader("content-type"));
-
+           
             // Imprimir todos los encabezados de la solicitud
             Enumeration<String> headerNames = request.getHeaderNames();
             while (headerNames.hasMoreElements()) {
                 String headerName = headerNames.nextElement();
                 String headerValue = request.getHeader(headerName);
-                System.out.println("Encabezado: " + headerName + " = " + headerValue);
+                
             }
 
             // Imprimir los parámetros de la solicitud
@@ -59,10 +57,8 @@ public class jwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 String paramName = parameterNames.nextElement();
                 body = paramName;
                 String paramValue = request.getParameter(paramName);
-                System.out.println("Parámetro: " + paramName + " = " + paramValue);
-            }
-
-           
+              
+            }      
 
             // Imprimir el cuerpo de la solicitud (ten en cuenta que esto solo funciona si la solicitud se puede leer múltiples veces)
             try {
@@ -77,8 +73,6 @@ public class jwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             }
        
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,password);
-             System.out.println("Usuario asignado :" + authenticationToken);
-             System.out.println("Usuario verificado :" + getAuthenticationManager().authenticate(authenticationToken));
             return getAuthenticationManager().authenticate(authenticationToken);
         
     }
@@ -87,19 +81,17 @@ public class jwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
         
-         User user = (User) authResult.getPrincipal();
+                CustomUserDetails user = (CustomUserDetails) authResult.getPrincipal();
          String token = jwtUtiles.generateTokenDetail(user.getUsername());
          
-         System.out.println("datos del authResult: " + user);
          response.addHeader("token", token);
 
          Map<String, Object> httpResponse = new HashMap<>();
          httpResponse.put("token", token);
-         System.out.println("Token de envio:" + token);
          httpResponse.put("message", "Autenticacion Correcta");
-         httpResponse.put("userName", user.getUsername());
-              System.out.println("Token de envio:" + user.getUsername());
-              httpResponse.put("uid", "valor del uid"); // Reemplaza "valor del uid" con el valor real
+         httpResponse.put("correo", user.getUsername());
+         httpResponse.put("userName", user.getName());     
+         httpResponse.put("id", user.getUid()); // Reemplaza "valor del uid" con el valor real
 
               // Convertir el objeto JSON en una cadena
               String jsonResponse = new ObjectMapper().writeValueAsString(httpResponse);

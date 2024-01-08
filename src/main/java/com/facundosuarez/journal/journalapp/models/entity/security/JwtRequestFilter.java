@@ -41,11 +41,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             final String authorizationHeader = request.getHeader("x-token");
         
-            
-            System.out.println("***************url" + request.getRequestURI());
-            System.out.println("Valor de content-type: " +  request.getHeader("content-type"));
-            System.out.println("Valor de token: " +  request.getHeader("x-token"));
-        
             String username = null;
             String jwt = null;
 
@@ -63,10 +58,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     
                     userDetails = null;
                 }
-                 System.out.println("rol del usuario:   " + userDetails.getUsername());
-                  System.out.println("rol del usuario:   " + userDetails.getPassword());
-                System.out.println("rol del usuario:   " + userDetails.getAuthorities());
-
+            
                 if (jwtUtil.validateToken(jwt, username) && userDetails != null) {
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
